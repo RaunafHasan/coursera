@@ -3,6 +3,8 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prisma } from "@/lib/prisma"
 
+export const runtime = 'nodejs'
+
 export async function DELETE(
   req: NextRequest,
   context: { params: Promise<{ id: string; contentId: string }> }

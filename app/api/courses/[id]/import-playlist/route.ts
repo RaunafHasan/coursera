@@ -10,6 +10,8 @@ const youtube = google.youtube({
   auth: process.env.YOUTUBE_API_KEY
 })
 
+export const runtime = 'nodejs'
+
 export async function POST(
   request: Request,
   { params }: { params: Promise<{ id: string }> }
