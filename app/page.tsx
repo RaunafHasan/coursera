@@ -26,9 +26,9 @@ export default async function Home() {
     orderBy: { createdAt: 'desc' }
   });
 
-  const coursesWithProgress = courses.map(course => {
+  const coursesWithProgress = courses.map((course: any) => {
     const totalContent = course.contents.length;
-    const completedContent = course.progress.filter(p => p.completed).length;
+    const completedContent = course.progress.filter((p: any) => p.completed).length;
     const progress = totalContent > 0 ? Math.round((completedContent / totalContent) * 100) : 0;
 
     return {
