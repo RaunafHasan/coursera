@@ -11,7 +11,7 @@ const youtube = google.youtube({
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const session = await getServerSession(authOptions)
@@ -47,8 +47,10 @@ export async function POST(
     const videoTitle = response.data.items[0].snippet?.title || "Untitled Video"
 
     // Get current max order
+    const { id } = await params
+
     const contents = await prisma.content.findMany({
-      where: { courseId: params.id },
+      where: { courseId: id },
       orderBy: { order: "desc" },
       take: 1
     })
@@ -62,7 +64,7 @@ export async function POST(
         type: "VIDEO",
         youtubeUrl: youtubeUrl,
         order: order,
-        courseId: params.id
+        courseId: id
       }
     })
 
