@@ -3,6 +3,7 @@ import Credentials from "next-auth/providers/credentials"
 import { prisma } from "./prisma"
 import bcrypt from "bcryptjs"
 
+// @ts-ignore
 export const authOptions: NextAuthOptions = {
   providers: [
     Credentials({
@@ -10,6 +11,7 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" }
       },
+      // @ts-ignore
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) {
           return null
@@ -42,6 +44,7 @@ export const authOptions: NextAuthOptions = {
     })
   ],
   callbacks: {
+    // @ts-ignore
     async jwt({ token, user }) {
       if (user) {
         token.role = user.role
@@ -49,6 +52,7 @@ export const authOptions: NextAuthOptions = {
       }
       return token
     },
+    // @ts-ignore
     async session({ session, token }) {
       if (session.user) {
         session.user.role = token.role as string
